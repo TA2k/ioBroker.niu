@@ -172,7 +172,7 @@ class Niu extends utils.Adapter {
             },
             {
                 path: "status",
-                url: "https://app-api-fk.niu.com//v3/motor_data/index_info?sn=$vin",
+                url: "https://app-api-fk.niu.com//v5/scooter/motor_data/index_info?sn=$vin",
                 desc: "Status of the scooter",
             },
         ];

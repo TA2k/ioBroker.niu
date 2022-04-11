@@ -64,7 +64,7 @@ class Niu extends utils.Adapter {
             }, this.config.interval * 60 * 1000);
             this.refreshTokenInterval = setInterval(() => {
                 this.refreshToken();
-            }, this.session.expires_in * 1000);
+            }, 22 * 60 * 60 * 1000);
         }
     }
     async login() {
@@ -72,10 +72,18 @@ class Niu extends utils.Adapter {
             method: "post",
             url: "https://account-fk.niu.com/v3/api/oauth2/token",
             headers: {
-                Accept: "*/*",
-                "Accept-Language": "de-de",
+                accept: "*/*",
+                token: "",
+                "user-agent": "manager/4.7.12 (iPhone; iOS 14.8; Scale/3.00);deviceName=iPhone;timezone=Europe/Berlin;model=iPhone 8 Plus;lang=de-DE;ostype=iOS;clientIdentifier=Overseas",
+                "accept-language": "de-DE;q=1, uk-DE;q=0.9, en-DE;q=0.8",
             },
-            data: { account: this.config.username, app_id: "niu_fksss2ws", grant_type: "password", password: crypto.createHash("md5").update(this.config.password).digest("hex"), scope: "base" },
+            data: qs.stringify({
+                account: this.config.username,
+                app_id: "niu_fksss2ws",
+                grant_type: "password",
+                password: crypto.createHash("md5").update(this.config.password).digest("hex"),
+                scope: "base",
+            }),
         })
             .then((res) => {
                 this.log.debug(JSON.stringify(res.data));
@@ -105,7 +113,10 @@ class Niu extends utils.Adapter {
         })
             .then(async (res) => {
                 this.log.debug(JSON.stringify(res.data));
-
+                if (!res.data.data.items) {
+                    this.log.error("No devices found");
+                    return;
+                }
                 for (const device of res.data.data.items) {
                     const vin = device.sn;
                     this.deviceArray.push(vin);

@@ -118,7 +118,12 @@ class Niu extends utils.Adapter {
                     return;
                 }
                 for (const device of res.data.data.items) {
-                    const vin = device.sn;
+                    const vin = device.sn_id; // Alternative datapoint for serial number
+                    
+                    if (device.sn) {
+                        vin = device.sn; // original serial number
+                    }             
+                                        
                     this.deviceArray.push(vin);
                     let name = device.name;
                     if (device.vehicleTypeId) {
@@ -176,15 +181,40 @@ class Niu extends utils.Adapter {
                 url: "https://app-api-fk.niu.com/v3/motor_data/battery_info/health?sn=$vin",
                 desc: "Status of the battery health",
             },
-            {
+/*            {
                 path: "battery_info",
                 url: "https://app-api-fk.niu.com/v3/motor_data/battery_info?sn=$vin",
                 desc: "Status of the battery info",
-            },
+            }, */ // A lot of datapoints without informations.
             {
                 path: "status",
-                url: "https://app-api-fk.niu.com//v5/scooter/motor_data/index_info?sn=$vin",
+                url: "https://app-api-fk.niu.com/v5/scooter/motor_data/index_info?sn=$vin",
                 desc: "Status of the scooter",
+            }, // Can lead to an 500-Error
+            { 
+		        path: "scooter_info", // A lot of Infos about the scooter; e.g. position, battery, last track and much more
+		        url: "https://app-api-fk.niu.com/v3/motor_data/index_info?sn=$vin", 
+		        desc: "More Information of the scooter",
+            },
+/*	        { 
+		        path: "track", 
+		        url: "https://app-api-fk.niu.com/v5/scooter/motor_data/track?sn=$vin", 
+		        desc: "Tracks of the scooter",
+            }, */ // hidden URL for track informations - 404-Error
+	        { 
+		        path: "cycling_statistics.day", // daily statistics
+		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=1&sn=$vin",
+		        desc: "Cycling statistics by day of the scooter",
+            },
+	        {
+		        path: "cycling_statistics.week", // weekly statistics
+		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=2&sn=$vin", 
+		        desc: "Cycling statistics by week of the scooter",
+            },
+	        { 
+		        path: "cycling_statistics.month", // monthly statistics
+		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=3&sn=$vin",
+		        desc: "Cycling statistics by month of the scooter",
             },
         ];
 

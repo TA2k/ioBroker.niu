@@ -118,8 +118,7 @@ class Niu extends utils.Adapter {
                     return;
                 }
                 for (const device of res.data.data.items) {
-                    const vin = device.sn_id; // Alternative datapoint for serial number
-                    
+                    let vin = device.sn_id; // Alternative datapoint for serial number
                     if (device.sn) {
                         vin = device.sn; // original serial number
                     }             

@@ -46,7 +46,7 @@ class Niu extends utils.Adapter {
             this.log.error("Please set username and password in the instance settings");
             return;
         }
-        this.userAgent = "manager/4.7.16 (iPhone; iOS 14.8; Scale/3.00);deviceName=iPhone;timezone=Europe/Berlin;model=iPhone 8 Plus;lang=de-DE;ostype=iOS;clientIdentifier=Overseas";
+        this.userAgent = "manager/4.7.16 (iPhone; iOS 14.8; Scale/3.00);deviceName=iPhone;timezone=Europe/Berlin;model=iPhone;lang=de-DE;ostype=iOS;clientIdentifier=Overseas";
 
         this.updateInterval = null;
         this.reLoginTimeout = null;

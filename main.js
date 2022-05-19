@@ -46,7 +46,7 @@ class Niu extends utils.Adapter {
             this.log.error("Please set username and password in the instance settings");
             return;
         }
-        this.userAgent = "ioBroker v0.0.1";
+        this.userAgent = "manager/4.7.16 (iPhone; iOS 14.8; Scale/3.00);deviceName=iPhone;timezone=Europe/Berlin;model=iPhone 8 Plus;lang=de-DE;ostype=iOS;clientIdentifier=Overseas";
 
         this.updateInterval = null;
         this.reLoginTimeout = null;
@@ -121,12 +121,12 @@ class Niu extends utils.Adapter {
                     let vin = device.sn_id; // Alternative datapoint for serial number
                     if (device.sn) {
                         vin = device.sn; // original serial number
-                    }             
-                                        
+                    }
+
                     this.deviceArray.push(vin);
-                    let name = device.name;
-                    if (device.vehicleTypeId) {
-                        name += " " + device.vehicleTypeId;
+                    let name = device.scooter_name;
+                    if (device.sku_name) {
+                        name += " " + device.sku_name;
                     }
                     await this.setObjectNotExistsAsync(vin, {
                         type: "device",
@@ -180,40 +180,42 @@ class Niu extends utils.Adapter {
                 url: "https://app-api-fk.niu.com/v3/motor_data/battery_info/health?sn=$vin",
                 desc: "Status of the battery health",
             },
-/*            {
+            {
                 path: "battery_info",
                 url: "https://app-api-fk.niu.com/v3/motor_data/battery_info?sn=$vin",
                 desc: "Status of the battery info",
-            }, */ // A lot of datapoints without informations.
+            },
             {
                 path: "status",
                 url: "https://app-api-fk.niu.com/v5/scooter/motor_data/index_info?sn=$vin",
                 desc: "Status of the scooter",
-            }, // Can lead to an 500-Error
-            { 
-		        path: "scooter_info", // A lot of Infos about the scooter; e.g. position, battery, last track and much more
-		        url: "https://app-api-fk.niu.com/v3/motor_data/index_info?sn=$vin", 
-		        desc: "More Information of the scooter",
             },
-/*	        { 
-		        path: "track", 
-		        url: "https://app-api-fk.niu.com/v5/scooter/motor_data/track?sn=$vin", 
-		        desc: "Tracks of the scooter",
-            }, */ // hidden URL for track informations - 404-Error
-	        { 
-		        path: "cycling_statistics.day", // daily statistics
-		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=1&sn=$vin",
-		        desc: "Cycling statistics by day of the scooter",
+            {
+                path: "scooter_info", // A lot of Infos about the scooter; e.g. position, battery, last track and much more
+                url: "https://app-api-fk.niu.com/v3/motor_data/index_info?sn=$vin",
+
+                desc: "More Information of the scooter",
             },
-	        {
-		        path: "cycling_statistics.week", // weekly statistics
-		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=2&sn=$vin", 
-		        desc: "Cycling statistics by week of the scooter",
+            {
+                path: "track",
+                url: "https://app-api-fk.niu.com/v5/track/list/v2",
+                desc: "Tracks of the scooter",
+                method: "post",
             },
-	        { 
-		        path: "cycling_statistics.month", // monthly statistics
-		        url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=3&sn=$vin",
-		        desc: "Cycling statistics by month of the scooter",
+            {
+                path: "cycling_statistics.day", // daily statistics
+                url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=1&sn=$vin",
+                desc: "Cycling statistics by day of the scooter",
+            },
+            {
+                path: "cycling_statistics.week", // weekly statistics
+                url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=2&sn=$vin",
+                desc: "Cycling statistics by week of the scooter",
+            },
+            {
+                path: "cycling_statistics.month", // monthly statistics
+                url: "https://app-api-fk.niu.com/v3/motor_data/cycling_statistics?sortby=3&sn=$vin",
+                desc: "Cycling statistics by month of the scooter",
             },
         ];
 
@@ -221,24 +223,36 @@ class Niu extends utils.Adapter {
             accept: "*/*",
             token: this.session.access_token,
             "accept-language": "de",
+            "user-agent": this.userAgent,
         };
         for (const vin of this.deviceArray) {
             for (const element of statusArray) {
                 const url = element.url.replace("$vin", vin);
-
+                const data = {
+                    sn: vin,
+                    index: "0",
+                    token: this.session.access_token,
+                    pagesize: 10,
+                };
                 await this.requestClient({
-                    method: "get",
+                    method: element.method || "get",
                     url: url,
                     headers: headers,
+                    data: data,
                 })
                     .then((res) => {
                         this.log.debug(JSON.stringify(res.data));
                         if (!res.data) {
                             return;
                         }
-                        const data = res.data;
-
-                        const forceIndex = null;
+                        let data = res.data;
+                        if (data.data) {
+                            data = data.data;
+                        }
+                        if (element.path === "battery_info") {
+                            delete data.batteries.compartmentA;
+                        }
+                        const forceIndex = true;
                         const preferedArrayName = null;
 
                         this.json2iob.parse(vin + "." + element.path, data, { forceIndex: forceIndex, preferedArrayName: preferedArrayName, channelName: element.desc });

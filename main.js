@@ -299,8 +299,12 @@ class Niu extends utils.Adapter {
         })
             .then((res) => {
                 this.log.debug(JSON.stringify(res.data));
-                this.session = res.data;
-                this.setState("info.connection", true, true);
+
+                if (res.data.data && res.data.data.token) {
+                    this.session = res.data.data.token;
+                    this.setState("info.connection", true, true);
+                    return;
+                }
             })
             .catch((error) => {
                 this.log.error("refresh token failed");

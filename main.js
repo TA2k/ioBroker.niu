@@ -304,6 +304,8 @@ class Niu extends utils.Adapter {
                     this.session = res.data.data.token;
                     this.setState("info.connection", true, true);
                     return;
+                } else {
+                    this.log.warn("no refresh token found");
                 }
             })
             .catch((error) => {

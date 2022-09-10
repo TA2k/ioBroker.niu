@@ -1,115 +1,106 @@
 {
-    "common": {
-        "name": "niu",
-        "version": "0.0.3",
-        "news": {
-            "0.0.3": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "titleLang": {
-            "en": "Niu",
-            "de": "Niu",
-            "ru": "Ниу",
-            "pt": "Niu",
-            "nl": "Niu",
-            "fr": "Niu",
-            "it": "Niu",
-            "es": "niu",
-            "pl": "Niu",
-            "zh-cn": "牛"
-        },
-        "desc": {
-            "en": "Adapter for NIU E-Scooter",
-            "de": "Adapter für NIU E-Scooter",
-            "ru": "Адаптер для электронного скутера NIU",
-            "pt": "Adaptador para NIU E-Scooter",
-            "nl": "Adapter voor NIU E-Scooter",
-            "fr": "Adaptateur pour scooter électrique NIU",
-            "it": "Adattatore per scooter elettrico NIU",
-            "es": "Adaptador para patinete eléctrico NIU",
-            "pl": "Adapter do hulajnogi elektrycznej NIU",
-            "zh-cn": "NIU E-Scooter 适配器"
-        },
-        "authors": [
-            "TA2k <tombox2020@gmail.com>"
-        ],
-        "keywords": [
-            "niu",
-            "e-scooter"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "niu.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/TA2k/ioBroker.niu/master/admin/niu.png",
-        "readme": "https://github.com/TA2k/ioBroker.niu/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "vehicle",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "materialize": true,
-        "plugins": {
-            "sentry": {
-                "dsn": "https://c9bd6c851b1246da95e6e982aa9b88f3@sentry.iobroker.net/152"
-            }
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.2.0"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=4.0.9"
-            }
-        ]
+  "common": {
+    "name": "niu",
+    "version": "0.0.3",
+    "news": {
+      "0.0.3": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
     },
-    "encryptedNative": [
-        "password"
-    ],
-    "protectedNative": [
-        "password"
-    ],
-    "native": {
-        "username": "",
-        "password": "",
-        "interval": 10
+    "titleLang": {
+      "en": "Niu",
+      "de": "Niu",
+      "ru": "Ниу",
+      "pt": "Niu",
+      "nl": "Niu",
+      "fr": "Niu",
+      "it": "Niu",
+      "es": "niu",
+      "pl": "Niu",
+      "zh-cn": "牛"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Adapter for NIU E-Scooter",
+      "de": "Adapter für NIU E-Scooter",
+      "ru": "Адаптер для электронного скутера NIU",
+      "pt": "Adaptador para NIU E-Scooter",
+      "nl": "Adapter voor NIU E-Scooter",
+      "fr": "Adaptateur pour scooter électrique NIU",
+      "it": "Adattatore per scooter elettrico NIU",
+      "es": "Adaptador para patinete eléctrico NIU",
+      "pl": "Adapter do hulajnogi elektrycznej NIU",
+      "zh-cn": "NIU E-Scooter 适配器"
+    },
+    "authors": ["TA2k <tombox2020@gmail.com>"],
+    "keywords": ["niu", "e-scooter"],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "niu.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/TA2k/ioBroker.niu/master/admin/niu.png",
+    "readme": "https://github.com/TA2k/ioBroker.niu/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "vehicle",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "materialize": true,
+    "plugins": {
+      "sentry": {
+        "dsn": "https://c9bd6c851b1246da95e6e982aa9b88f3@sentry.iobroker.net/152"
+      }
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.2.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=4.0.9"
+      }
     ]
+  },
+  "encryptedNative": ["password"],
+  "protectedNative": ["password"],
+  "native": {
+    "username": "",
+    "password": "",
+    "interval": 10
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

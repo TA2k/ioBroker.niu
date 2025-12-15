@@ -44,7 +44,6 @@
     "keywords": ["niu", "e-scooter"],
     "license": "MIT",
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "niu.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/TA2k/ioBroker.niu/master/admin/niu.png",

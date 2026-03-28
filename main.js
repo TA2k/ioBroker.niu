@@ -9,11 +9,11 @@
 const utils = require('@iobroker/adapter-core');
 const axios = require('axios').default;
 const Json2iob = require('json2iob');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const qs = require('qs');
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+// const fs = require("node:fs");
 
 class Niu extends utils.Adapter {
   /**

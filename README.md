@@ -32,6 +32,8 @@ niu.0.vin.remote auf true/false setzen steuert den jeweiligen Befehl
 ### 0.0.3
 * (TA2k) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 

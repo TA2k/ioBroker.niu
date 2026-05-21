@@ -29,6 +29,10 @@ niu.0.vin.remote auf true/false setzen steuert den jeweiligen Befehl
 
 ## Changelog
 
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 0.0.3
 * (TA2k) initial release
 

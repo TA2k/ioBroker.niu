@@ -40,8 +40,13 @@
       "pl": "Adapter do hulajnogi elektrycznej NIU",
       "zh-cn": "NIU E-Scooter 适配器"
     },
-    "authors": ["TA2k <tombox2020@gmail.com>"],
-    "keywords": ["niu", "e-scooter"],
+    "authors": [
+      "TA2k <tombox2020@gmail.com>"
+    ],
+    "keywords": [
+      "niu",
+      "e-scooter"
+    ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
     "main": "main.js",
@@ -63,7 +68,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.2.0"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
@@ -72,8 +77,12 @@
       }
     ]
   },
-  "encryptedNative": ["password"],
-  "protectedNative": ["password"],
+  "encryptedNative": [
+    "password"
+  ],
+  "protectedNative": [
+    "password"
+  ],
   "native": {
     "username": "",
     "password": "",
